@@ -1,0 +1,137 @@
+#root {
+  margin: 0;
+  padding: 0;
+  background-color: #181824; 
+
+}
+
+
+.logo {
+  display: inline-block;
+  transform-origin: center;
+  animation: logo-spin infinite 20s linear;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+@keyframes moveShadow {
+  0% {
+    text-shadow: -4px -4px 0 #ff00ea, 0 0 8px #00ffb3;
+  }
+  50% {
+    text-shadow: 4px 4px 0 #ff00ea, 0 0 8px #00ffb3;
+  }
+  100% {
+    text-shadow: -4px -4px 0 #ff00ea, 0 0 8px #00ffb3;
+  }
+}
+
+.trending-shadow {
+  animation: moveShadow 1s infinite ease-in-out;
+}
+ 
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.mask-fade-bottom {
+  mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.memePreview{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+.meme-upload-btn {
+  position: relative;
+  width: 100%;
+  padding: 0.8rem 0.5rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+
+  color: #d16fff;
+  background: #6d247a;
+  border: 1px solid #d16fff;
+  box-shadow: 0 0 20px #00ffe0;
+  overflow: hidden;
+  transition: box-shadow 0.3s, color 0.3s;
+}
+.meme-upload-btn::before {
+
+}
+.meme-upload-btn:hover {
+  box-shadow: 0 0 40px #00ffe0;
+  color: #ff00ea;
+}
+.meme-upload-btn:hover::before {
+  opacity: 1;
+}
+.meme-upload-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 2s infinite;
+}
+
+.duel{
+  font-family: "WDXL Lubrifont SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+
+
+@keyframes glitch-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 2px #2bd0e4,
+      0 0 4px #2bd0e4,
+      0 0 6px #e44a93,
+      0 0 10px #2bd0e4;
+  }
+  20%, 24%, 55% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+.fade-flicker {
+  display: inline-block;
+  opacity: 0;
+  animation: fade-letter 0.8s ease forwards, glitch-flicker 2s infinite;
+  color: #2bd0e4;
+}
+
+.fade-flicker.highlight {
+  color: #e44a93;
+}

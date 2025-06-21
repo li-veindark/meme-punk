@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  ethBalance Float    @default(500.0)
+  points     Int      @default(0)
+  memes      Meme[]
+  votes      Vote[]
+  bids       Bid[]
+}
+
+model Meme {
+  id        Int      @id @default(autoincrement())
+  title     String
+  imageUrl  String
+  caption   String?
+  vibe      String?
+  upvotes   Int      @default(0)
+  downvotes Int      @default(0)
+  price     Float    @default(0.0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId Int
+
+  tags      Tag[]    @relation("MemeTags")
+  votes     Vote[]
+
+  duelsAsA  Duel[]   @relation("MemeA")
+  duelsAsB  Duel[]   @relation("MemeB")
+  bids      Bid[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  memes Meme[] @relation("MemeTags")
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+  value     Int // 1 for upvote, -1 for downvote
+  userId    Int
+  memeId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  meme      Meme     @relation(fields: [memeId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, memeId])
+}
+
+// Duel models
+model Duel {
+  id        Int      @id @default(autoincrement())
+  memeA     Meme     @relation("MemeA", fields: [memeAId], references: [id])
+  memeAId   Int
+  memeB     Meme     @relation("MemeB", fields: [memeBId], references: [id])
+  memeBId   Int
+  startTime DateTime?
+  endTime   DateTime?
+  status    String   @default("ACTIVE") // e.g., ACTIVE, FINISHED, CANCELLED
+  bids      Bid[]
+
+  @@index([status])
+  @@index([startTime])
+}
+
+model Bid {
+  id     Int   @id @default(autoincrement())
+  amount Float
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  duelId Int
+  duel   Duel @relation(fields: [duelId], references: [id], onDelete: Cascade)
+
+  memeId Int
+  meme   Meme @relation(fields: [memeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([duelId])
+  @@index([memeId])
+} 

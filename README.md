@@ -2,7 +2,7 @@
 
 **MemeHustle** is a full-stack MERN application where users can upload, vote on, and battle memes in a competitive dueling system. The platform features AI-powered content generation, a real-time bidding system with a simulated economy, and pages for trending content.
 
-![MemeHustle Screenshot](client/src/assets/preview.jpg)
+
 
 ---
 
